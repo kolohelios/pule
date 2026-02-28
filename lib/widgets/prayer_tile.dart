@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/prayer_item.dart';
-import '../models/tag.dart';
 import '../providers/prayer_provider.dart';
 import '../providers/tag_provider.dart';
 
