@@ -28,12 +28,7 @@ class _AddPrayerScreenState extends ConsumerState<AddPrayerScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Prayer'),
-        actions: [
-          TextButton(
-            onPressed: _save,
-            child: const Text('Save'),
-          ),
-        ],
+        actions: [TextButton(onPressed: _save, child: const Text('Save'))],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -51,8 +46,7 @@ class _AddPrayerScreenState extends ConsumerState<AddPrayerScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            Text('Tags',
-                style: Theme.of(context).textTheme.titleSmall),
+            Text('Tags', style: Theme.of(context).textTheme.titleSmall),
             const SizedBox(height: 8),
             TagPicker(
               selectedTagIds: _selectedTagIds,

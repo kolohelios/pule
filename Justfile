@@ -5,11 +5,11 @@ validate: format-check analyze test
 
 # Format code
 format:
-    flutter format lib/ test/
+    dart format lib/ test/
 
 # Check formatting without changes
 format-check:
-    flutter format --set-exit-if-changed lib/ test/
+    dart format --set-exit-if-changed lib/ test/
 
 # Run static analysis
 analyze:

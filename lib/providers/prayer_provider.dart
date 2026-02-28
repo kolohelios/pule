@@ -18,8 +18,7 @@ final pausedItemsProvider = StreamProvider<List<PrayerItem>>((ref) {
   return repo.watchPausedItems();
 });
 
-final selectedTagIdsProvider =
-    StateProvider<Set<String>>((ref) => {});
+final selectedTagIdsProvider = StateProvider<Set<String>>((ref) => {});
 
 final filteredItemsProvider = Provider<AsyncValue<List<PrayerItem>>>((ref) {
   final itemsAsync = ref.watch(activeItemsProvider);
@@ -29,8 +28,11 @@ final filteredItemsProvider = Provider<AsyncValue<List<PrayerItem>>>((ref) {
     return itemsAsync;
   }
 
-  return itemsAsync.whenData((items) => items
-      .where(
-          (item) => item.tagIds.any((tagId) => selectedTagIds.contains(tagId)))
-      .toList());
+  return itemsAsync.whenData(
+    (items) => items
+        .where(
+          (item) => item.tagIds.any((tagId) => selectedTagIds.contains(tagId)),
+        )
+        .toList(),
+  );
 });

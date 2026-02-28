@@ -12,9 +12,7 @@ class PausedScreen extends ConsumerWidget {
     final pausedAsync = ref.watch(pausedItemsProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Paused Prayers'),
-      ),
+      appBar: AppBar(title: const Text('Paused Prayers')),
       body: pausedAsync.when(
         data: (items) {
           if (items.isEmpty) {
@@ -22,11 +20,8 @@ class PausedScreen extends ConsumerWidget {
               child: Text(
                 'No paused prayers',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withAlpha(150),
-                    ),
+                  color: Theme.of(context).colorScheme.onSurface.withAlpha(150),
+                ),
               ),
             );
           }

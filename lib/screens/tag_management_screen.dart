@@ -27,9 +27,7 @@ class TagManagementScreen extends ConsumerWidget {
     final tagsAsync = ref.watch(tagsProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Manage Tags'),
-      ),
+      appBar: AppBar(title: const Text('Manage Tags')),
       body: tagsAsync.when(
         data: (tags) {
           if (tags.isEmpty) {
@@ -37,11 +35,8 @@ class TagManagementScreen extends ConsumerWidget {
               child: Text(
                 'No tags yet',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withAlpha(150),
-                    ),
+                  color: Theme.of(context).colorScheme.onSurface.withAlpha(150),
+                ),
               ),
             );
           }
@@ -60,13 +55,11 @@ class TagManagementScreen extends ConsumerWidget {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.edit),
-                      onPressed: () =>
-                          _showEditTagDialog(context, ref, tag),
+                      onPressed: () => _showEditTagDialog(context, ref, tag),
                     ),
                     IconButton(
                       icon: const Icon(Icons.delete),
-                      onPressed: () =>
-                          _confirmDeleteTag(context, ref, tag),
+                      onPressed: () => _confirmDeleteTag(context, ref, tag),
                     ),
                   ],
                 ),
@@ -118,7 +111,9 @@ class TagManagementScreen extends ConsumerWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Delete tag?'),
-        content: Text('Delete "${tag.name}"? It will be removed from all prayers.'),
+        content: Text(
+          'Delete "${tag.name}"? It will be removed from all prayers.',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -171,8 +166,7 @@ class TagManagementScreen extends ConsumerWidget {
                   final colorInt = color.toARGB32();
                   final isSelected = selectedColor == colorInt;
                   return GestureDetector(
-                    onTap: () =>
-                        setState(() => selectedColor = colorInt),
+                    onTap: () => setState(() => selectedColor = colorInt),
                     child: Container(
                       width: 36,
                       height: 36,
@@ -181,10 +175,9 @@ class TagManagementScreen extends ConsumerWidget {
                         shape: BoxShape.circle,
                         border: isSelected
                             ? Border.all(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSurface,
-                                width: 3)
+                                color: Theme.of(context).colorScheme.onSurface,
+                                width: 3,
+                              )
                             : null,
                       ),
                     ),
