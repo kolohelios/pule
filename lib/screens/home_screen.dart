@@ -24,8 +24,7 @@ class HomeScreen extends ConsumerWidget {
         title: const Text('Pule'),
         actions: [
           PopupMenuButton<String>(
-            onSelected: (value) =>
-                _handleMenuAction(context, ref, value),
+            onSelected: (value) => _handleMenuAction(context, ref, value),
             itemBuilder: (context) => [
               const PopupMenuItem(
                 value: 'reset',
@@ -71,8 +70,10 @@ class HomeScreen extends ConsumerWidget {
               if (tags.isEmpty) return const SizedBox.shrink();
               return SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 child: Row(
                   children: tags.map((tag) {
                     return Padding(
@@ -81,8 +82,7 @@ class HomeScreen extends ConsumerWidget {
                         tag: tag,
                         selected: selectedTagIds.contains(tag.id),
                         onTap: () {
-                          final current =
-                              ref.read(selectedTagIdsProvider);
+                          final current = ref.read(selectedTagIdsProvider);
                           final newSet = Set<String>.from(current);
                           if (newSet.contains(tag.id)) {
                             newSet.remove(tag.id);
@@ -110,36 +110,31 @@ class HomeScreen extends ConsumerWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.favorite_outline,
-                            size: 64,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withAlpha(100)),
+                        Icon(
+                          Icons.favorite_outline,
+                          size: 64,
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.primary.withAlpha(100),
+                        ),
                         const SizedBox(height: 16),
                         Text(
                           'No prayers yet',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
+                          style: Theme.of(context).textTheme.titleMedium
                               ?.copyWith(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSurface
-                                    .withAlpha(150),
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withAlpha(150),
                               ),
                         ),
                         const SizedBox(height: 8),
                         Text(
                           'Tap + to add your first prayer',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
+                          style: Theme.of(context).textTheme.bodyMedium
                               ?.copyWith(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSurface
-                                    .withAlpha(100),
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withAlpha(100),
                               ),
                         ),
                       ],
@@ -153,10 +148,8 @@ class HomeScreen extends ConsumerWidget {
                   },
                 );
               },
-              loading: () =>
-                  const Center(child: CircularProgressIndicator()),
-              error: (error, _) =>
-                  Center(child: Text('Error: $error')),
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (error, _) => Center(child: Text('Error: $error')),
             ),
           ),
         ],
@@ -165,9 +158,7 @@ class HomeScreen extends ConsumerWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => const AddPrayerScreen(),
-            ),
+            MaterialPageRoute(builder: (context) => const AddPrayerScreen()),
           );
         },
         child: const Icon(Icons.add),
@@ -175,8 +166,7 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  void _handleMenuAction(
-      BuildContext context, WidgetRef ref, String action) {
+  void _handleMenuAction(BuildContext context, WidgetRef ref, String action) {
     final repo = ref.read(prayerRepositoryProvider);
     switch (action) {
       case 'reset':
@@ -188,16 +178,12 @@ class HomeScreen extends ConsumerWidget {
       case 'paused':
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => const PausedScreen(),
-          ),
+          MaterialPageRoute(builder: (context) => const PausedScreen()),
         );
       case 'tags':
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => const TagManagementScreen(),
-          ),
+          MaterialPageRoute(builder: (context) => const TagManagementScreen()),
         );
     }
   }
@@ -208,7 +194,8 @@ class HomeScreen extends ConsumerWidget {
       builder: (context) => AlertDialog(
         title: const Text('Reset all?'),
         content: const Text(
-            'This will uncheck all completed prayers for a fresh start.'),
+          'This will uncheck all completed prayers for a fresh start.',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),

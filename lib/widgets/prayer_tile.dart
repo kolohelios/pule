@@ -22,8 +22,9 @@ class PrayerTile extends ConsumerWidget {
     final repo = ref.read(prayerRepositoryProvider);
     final tagsAsync = ref.watch(tagsProvider);
     final allTags = tagsAsync.valueOrNull ?? [];
-    final itemTags =
-        allTags.where((tag) => item.tagIds.contains(tag.id)).toList();
+    final itemTags = allTags
+        .where((tag) => item.tagIds.contains(tag.id))
+        .toList();
 
     return Dismissible(
       key: Key(item.id),
@@ -51,11 +52,9 @@ class PrayerTile extends ConsumerWidget {
           style: item.isCompleted
               ? TextStyle(
                   decoration: TextDecoration.lineThrough,
-                  color: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.color
-                      ?.withAlpha(128),
+                  color: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge?.color?.withAlpha(128),
                 )
               : null,
         ),
@@ -65,19 +64,23 @@ class PrayerTile extends ConsumerWidget {
                 child: Wrap(
                   spacing: 4,
                   children: itemTags
-                      .map((tag) => Chip(
-                            label: Text(tag.name,
-                                style: const TextStyle(fontSize: 11)),
-                            visualDensity: VisualDensity.compact,
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            backgroundColor:
-                                Color(tag.colorValue).withAlpha(60),
-                            side: BorderSide.none,
-                            padding: EdgeInsets.zero,
-                            labelPadding:
-                                const EdgeInsets.symmetric(horizontal: 6),
-                          ))
+                      .map(
+                        (tag) => Chip(
+                          label: Text(
+                            tag.name,
+                            style: const TextStyle(fontSize: 11),
+                          ),
+                          visualDensity: VisualDensity.compact,
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                          backgroundColor: Color(tag.colorValue).withAlpha(60),
+                          side: BorderSide.none,
+                          padding: EdgeInsets.zero,
+                          labelPadding: const EdgeInsets.symmetric(
+                            horizontal: 6,
+                          ),
+                        ),
+                      )
                       .toList(),
                 ),
               )
@@ -89,12 +92,12 @@ class PrayerTile extends ConsumerWidget {
                 onPressed: () => repo.resumeItem(item.id),
               )
             : showPauseAction
-                ? IconButton(
-                    icon: const Icon(Icons.pause),
-                    tooltip: 'Pause',
-                    onPressed: () => repo.pauseItem(item.id),
-                  )
-                : null,
+            ? IconButton(
+                icon: const Icon(Icons.pause),
+                tooltip: 'Pause',
+                onPressed: () => repo.pauseItem(item.id),
+              )
+            : null,
       ),
     );
   }
@@ -112,8 +115,9 @@ class PrayerTile extends ConsumerWidget {
           ),
           TextButton(
             onPressed: () {
-              final repo =
-                  ProviderScope.containerOf(context).read(prayerRepositoryProvider);
+              final repo = ProviderScope.containerOf(
+                context,
+              ).read(prayerRepositoryProvider);
               repo.pauseItem(item.id);
               Navigator.pop(context, false);
             },

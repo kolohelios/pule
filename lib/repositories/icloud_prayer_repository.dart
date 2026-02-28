@@ -9,17 +9,15 @@ import 'prayer_repository.dart';
 
 class ICloudPrayerRepository implements PrayerRepository {
   ICloudPrayerRepository({MethodChannel? channel})
-      : _channel = channel ?? const MethodChannel('com.jedwards.pule/icloud') {
+    : _channel = channel ?? const MethodChannel('com.jedwards.pule/icloud') {
     _channel.setMethodCallHandler(_handleMethodCall);
     _loadInitialData();
   }
 
   final MethodChannel _channel;
 
-  final _itemsController =
-      StreamController<List<PrayerItem>>.broadcast();
-  final _pausedItemsController =
-      StreamController<List<PrayerItem>>.broadcast();
+  final _itemsController = StreamController<List<PrayerItem>>.broadcast();
+  final _pausedItemsController = StreamController<List<PrayerItem>>.broadcast();
   final _tagsController = StreamController<List<Tag>>.broadcast();
 
   List<PrayerItem> _items = [];
@@ -72,11 +70,13 @@ class ICloudPrayerRepository implements PrayerRepository {
 
   void _emitItems() {
     _itemsController.add(
-        _items.where((item) => !item.isPaused).toList()
-          ..sort((a, b) => a.sortOrder.compareTo(b.sortOrder)));
+      _items.where((item) => !item.isPaused).toList()
+        ..sort((a, b) => a.sortOrder.compareTo(b.sortOrder)),
+    );
     _pausedItemsController.add(
-        _items.where((item) => item.isPaused).toList()
-          ..sort((a, b) => a.sortOrder.compareTo(b.sortOrder)));
+      _items.where((item) => item.isPaused).toList()
+        ..sort((a, b) => a.sortOrder.compareTo(b.sortOrder)),
+    );
   }
 
   Future<void> _saveItems() async {
@@ -145,9 +145,9 @@ class ICloudPrayerRepository implements PrayerRepository {
   @override
   Future<void> resetAllCompletions() async {
     _items = _items
-        .map((item) => item.isCompleted
-            ? item.copyWith(isCompleted: false)
-            : item)
+        .map(
+          (item) => item.isCompleted ? item.copyWith(isCompleted: false) : item,
+        )
         .toList();
     _emitItems();
     await _saveItems();

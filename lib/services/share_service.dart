@@ -4,8 +4,7 @@ import '../models/prayer_item.dart';
 import '../models/tag.dart';
 
 class ShareService {
-  static Future<void> shareList(
-      List<PrayerItem> items, List<Tag> tags) async {
+  static Future<void> shareList(List<PrayerItem> items, List<Tag> tags) async {
     if (items.isEmpty) return;
 
     final tagMap = {for (final tag in tags) tag.id: tag.name};

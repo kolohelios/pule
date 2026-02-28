@@ -6,7 +6,7 @@ import 'prayer_repository.dart';
 
 class FirebasePrayerRepository implements PrayerRepository {
   FirebasePrayerRepository({FirebaseFirestore? firestore})
-      : _firestore = firestore ?? FirebaseFirestore.instance;
+    : _firestore = firestore ?? FirebaseFirestore.instance;
 
   final FirebaseFirestore _firestore;
 
@@ -22,9 +22,11 @@ class FirebasePrayerRepository implements PrayerRepository {
         .where('isPaused', isEqualTo: false)
         .orderBy('sortOrder')
         .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => PrayerItem.fromJson(doc.data()))
-            .toList());
+        .map(
+          (snapshot) => snapshot.docs
+              .map((doc) => PrayerItem.fromJson(doc.data()))
+              .toList(),
+        );
   }
 
   @override
@@ -33,15 +35,19 @@ class FirebasePrayerRepository implements PrayerRepository {
         .where('isPaused', isEqualTo: true)
         .orderBy('sortOrder')
         .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => PrayerItem.fromJson(doc.data()))
-            .toList());
+        .map(
+          (snapshot) => snapshot.docs
+              .map((doc) => PrayerItem.fromJson(doc.data()))
+              .toList(),
+        );
   }
 
   @override
   Stream<List<Tag>> watchTags() {
     return _tagsCollection.snapshots().map(
-        (snapshot) => snapshot.docs.map((doc) => Tag.fromJson(doc.data())).toList());
+      (snapshot) =>
+          snapshot.docs.map((doc) => Tag.fromJson(doc.data())).toList(),
+    );
   }
 
   @override
@@ -72,8 +78,9 @@ class FirebasePrayerRepository implements PrayerRepository {
   @override
   Future<void> resetAllCompletions() async {
     final batch = _firestore.batch();
-    final snapshot =
-        await _itemsCollection.where('isCompleted', isEqualTo: true).get();
+    final snapshot = await _itemsCollection
+        .where('isCompleted', isEqualTo: true)
+        .get();
     for (final doc in snapshot.docs) {
       batch.update(doc.reference, {'isCompleted': false});
     }
